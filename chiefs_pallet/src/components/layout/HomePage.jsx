@@ -1,38 +1,39 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
+import './HomePage.css';  // Import the new CSS file
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="container">
       {/* Header */}
-      <header className="flex justify-between items-center p-4 bg-white shadow-md">
-        <h1 className="text-2xl font-bold text-gray-800">Cooking & Recipes</h1>
+      <header className="header">
+        <h1 className="title">Chef's Palette</h1>
         
         {/* Menu Button */}
-        <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)}>
+        <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
         
         {/* Navigation */}
-        <nav className={`md:flex gap-6 ${menuOpen ? 'block' : 'hidden'} md:block`}>
-          <Link to="/" className="text-gray-700 hover:text-gray-900">Home</Link>
-          <Link to="/about" className="text-gray-700 hover:text-gray-900">About</Link>
-          <Link to="/recipes" className="text-gray-700 hover:text-gray-900">Recipes</Link>
+        <nav className={`nav ${menuOpen ? 'show' : ''}`}>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/recipes" className="nav-link">Recipes</Link>
         </nav>
       </header>
       
       {/* Main Content */}
-      <main className="flex flex-col items-center justify-center text-center p-6">
-        <h2 className="text-3xl font-semibold text-gray-900">Welcome to Cooking & Recipes</h2>
-        <p className="text-gray-600 mt-2">Discover delicious recipes and enhance your cooking skills!</p>
+      <main className="main-content">
+        <h2 className="welcome-title">Welcome to Cooking & Recipes</h2>
+        <p className="description">Discover delicious recipes and enhance your cooking skills!</p>
         
         {/* Login & Signup Buttons */}
-        <div className="mt-6 flex gap-4">
-          <Link to="/login" className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">Login</Link>
-          <Link to="/signup" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600">Sign Up</Link>
+        <div className="button-container">
+          <Link to="/login" className="button login-button">Login</Link>
+          <Link to="/signup" className="button signup-button">Sign Up</Link>
         </div>
       </main>
     </div>
