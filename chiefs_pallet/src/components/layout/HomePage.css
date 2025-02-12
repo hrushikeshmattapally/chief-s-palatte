@@ -1,4 +1,5 @@
-/* Base Styles */
+/* HomePage.css */
+/* Header Styles */
 * {
   margin: 0;
   padding: 0;
@@ -12,156 +13,172 @@ body {
   
 }
 
-/* Container */
-.container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure container fills screen height */
-  background-color: #f7fafc;
-}
-/* Header */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #98D8EF; /* Set background color */
+  padding: 1rem 2rem;
+  background-color: #98D8EF;
   color: white;
-  width: 100%; /* Ensure header spans entire width */
-  position: fixed; /* Keep the header fixed at the top */
+  position: fixed;
   top: 0;
-  left: 0;
-  z-index: 10;
+  width: 100%;
+  z-index: 1000;
 }
 
 .title {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: bold;
-  
+  order: 2; /* Center title on mobile */
 }
 
-/* Menu Button */
-.menu-button {
-  display: none;
-}
-
-/* Navigation */
-.nav {
-  display: flex;
-  gap: 1.5rem;
+/* Navigation Items - Desktop */
+.nav_items {
+  display: none; /* Hidden on mobile */
+  gap: 2rem;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  transition: color 0.3s;
-  padding: 6px;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
 }
 
 .nav-link:hover {
-  color: #2d3748;
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
-.menu-button {
-  display: block;
-  margin-left: 2px;
+/* Login/Signup Buttons - Desktop */
+.button-container {
+  gap: 1rem;
+  order: 3;
 }
 
+/* Hamburger Menu */
 .menu-button {
-  background-color: black;
+  order: 1; /* Leftmost item */
+  background: none;
   border: none;
-  cursor: pointer;
-  padding: 10px;
+  color: white;
+  padding: 0.5rem;
 }
 
+/* Dropdown Menu - Mobile */
 .dropdown-menu {
   position: absolute;
-  top: 80px;
-  left: 10px;
-  background: white;
-  width: 150px;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #98D8EF;
   display: none;
   flex-direction: column;
-  border-radius: 5px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
 }
 
 .dropdown-menu.open {
   display: flex;
 }
 
-.nav-link {
-  padding: 10px;
-  text-decoration: none;
-  color: black;
-  transition: background 0.3s;
-}
+/* Responsive Desktop Layout */
+@media (min-width: 768px) {
+  .menu-button {
+    display: none;
+  }
 
-.nav-link:hover {
-  background: #f8b400;
-  color: white;
-}
+  .nav_items {
+    display: flex;
+    order: 2;
+    margin-left: 2rem;
+  }
 
-.nav {
-  display: none;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* Main Content */
-.main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: 70px; /* Add margin to account for fixed header */
-}
-
-.welcome-title {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #2d3748;
-}
-
-.description {
-  color: #718096;
-  margin-top: 0.5rem;
-}
-
-/* Button Container */
+  /* Update button container */
+/* Subscription button container - Fixing position */
 .button-container {
-  margin-top: 1.5rem;
+  padding: 1px;
   display: flex;
   gap: 1rem;
+  order: 3;
+  margin-left: auto;
+  padding: 0 1rem;
+  flex-wrap: wrap; /* Prevents button from overflowing */
+  align-items: center; /* Ensures buttons are aligned */
+  justify-content: center; /* Centers button properly */
+  max-width: 100%; /* Prevents container from exceeding width */
 }
 
-.button {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  color: white;
+/* Subscription button specific styling */
+.subscribe-button {
+  background-color: #ff4444 !important; /* Red color */
+  color: white !important;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  white-space: nowrap; /* Prevent text wrapping */
+  max-width: 100%; /* Prevents button from overflowing */
+  text-align: center;
 }
 
-.login-button {
-  background-color: #3b82f6;
+.subscribe-button:hover {
+  background-color: #cc0000 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.login-button:hover {
-  background-color: #2563eb;
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .subscribe-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    width: auto; /* Ensures it doesn’t stretch */
+    max-width: 90%;
+  }
+}
 }
 
-.signup-button {
-  background-color: #10b981;
+  .title {
+    order: 1; /* Move title to left */
+    margin-right: auto; /* Push nav to center */
+  }
+
+  .dropdown-menu {
+    display: none !important;
+  }
+
+
+/* Image Styles */
+.background-image {
+  width: 100% !important;
+  max-width: 100%;
+  margin: 6rem auto 2rem;
+  display: flex;
+  height: 80vh;
 }
 
-.signup-button:hover {
-  background-color: #059669;
+.popup-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1;
 }
 
-/* Footer Styles */
 .footer {
   background-color: #333;
   color: white;

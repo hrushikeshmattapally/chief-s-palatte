@@ -33,12 +33,17 @@ export default function HomePage() {
         </nav>
         {/* Login & Signup Buttons */}
         <div className="button-container">
-          <Link to="/login" className="button login-button">Login</Link>
-          <Link to="/signup" className="button signup-button">Sign Up</Link>
+        <Link to="/subscribe" className="button subscribe-button">Subscribe</Link>
         </div>
       </header>
-      <div className="popup-text">Become A Professional Chef!</div>
-      <img src={coockingImage} alt="Cooking" style={{ width: '100%', height: 'auto' }} className="background-image" />
+      <div className="image-container">
+  <div className="popup-text">Become A Professional Chef!</div>
+  <img 
+    src={coockingImage} 
+    alt="Cooking" 
+    className="background-image" 
+  />
+</div>
       {/* Main Content */}
       <div className="course-delivery-section">
         <h2>Course Delivery</h2>
