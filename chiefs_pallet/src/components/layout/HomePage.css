@@ -1,0 +1,261 @@
+/* HomePage.css */
+/* Header Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  font-family: Arial, sans-serif;
+  background-color: #f7fafc;
+  
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #98D8EF;
+  color: white;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  order: 2; /* Center title on mobile */
+}
+
+/* Navigation Items - Desktop */
+.nav_items {
+  display: none; /* Hidden on mobile */
+  gap: 2rem;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Login/Signup Buttons - Desktop */
+.button-container {
+  gap: 1rem;
+  order: 3;
+}
+
+/* Hamburger Menu */
+.menu-button {
+  order: 1; /* Leftmost item */
+  background: none;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+}
+
+/* Dropdown Menu - Mobile */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #98D8EF;
+  display: none;
+  flex-direction: column;
+  padding: 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dropdown-menu.open {
+  display: flex;
+}
+
+/* Responsive Desktop Layout */
+@media (min-width: 768px) {
+  .menu-button {
+    display: none;
+  }
+
+  .nav_items {
+    display: flex;
+    order: 2;
+    margin-left: 2rem;
+  }
+
+  /* Update button container */
+/* Subscription button container - Fixing position */
+.button-container {
+  padding: 1px;
+  display: flex;
+  gap: 1rem;
+  order: 3;
+  margin-left: auto;
+  padding: 0 1rem;
+  flex-wrap: wrap; /* Prevents button from overflowing */
+  align-items: center; /* Ensures buttons are aligned */
+  justify-content: center; /* Centers button properly */
+  max-width: 100%; /* Prevents container from exceeding width */
+}
+
+/* Subscription button specific styling */
+.subscribe-button {
+  background-color: #ff4444 !important; /* Red color */
+  color: white !important;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  white-space: nowrap; /* Prevent text wrapping */
+  max-width: 100%; /* Prevents button from overflowing */
+  text-align: center;
+}
+
+.subscribe-button:hover {
+  background-color: #cc0000 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .button-container {
+    flex-direction: column; /* Stack buttons vertically */
+    align-items: center;
+    width: 100%;
+    padding: 0;
+  }
+
+  .subscribe-button {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    width: auto; /* Ensures it doesn’t stretch */
+    max-width: 90%;
+  }
+}
+}
+
+  .title {
+    order: 1; /* Move title to left */
+    margin-right: auto; /* Push nav to center */
+  }
+
+  .dropdown-menu {
+    display: none !important;
+  }
+
+
+/* Image Styles */
+.background-image {
+  width: 100% !important;
+  max-width: 100%;
+  margin: 6rem auto 2rem;
+  display: flex;
+  height: 80vh;
+}
+
+.popup-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 2.5rem;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+.footer {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+  position:relative;
+  margin: 0; 
+}
+
+footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.footer-links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #f8b400;
+}
+
+.footer-social a {
+  color: white;
+  margin: 0 10px;
+  font-size: 24px;
+  transition: color 0.3s ease;
+}
+
+.footer-social a:hover {
+  color: #f8b400;
+}
+
+.footer-text {
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.course-delivery-section h2 {
+  color: #333;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.course-delivery-section h3 {
+  color: #333;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.course-delivery-section ul {
+  color: #333;
+  list-style-type: none;
+  padding: 0;
+}
+
+.course-delivery-section ul li {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+.course-delivery-section p {
+  color: #333;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
