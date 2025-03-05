@@ -1,6 +1,7 @@
 /* HomePage.css */
 /* Header Styles */
 * {
+  
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -29,7 +30,7 @@ body {
 .title {
   font-size: 1.8rem;
   font-weight: bold;
-  order: 2; /* Center title on mobile */
+  order: 2; 
 }
 
 /* Navigation Items - Desktop */
@@ -199,6 +200,7 @@ footer p {
   flex-direction: column;
   align-items: center;
   gap: 10px;
+  width: 189vh;
 }
 
 
@@ -241,6 +243,7 @@ footer p {
   font-size: 1.5rem;
   margin-top: 20px;
 }
+
 
 .course-delivery-section ul {
   color: #333;
