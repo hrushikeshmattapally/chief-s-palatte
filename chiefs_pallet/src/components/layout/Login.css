@@ -68,11 +68,11 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width:198vh;
     background-color: #f4f4f4;
-    width:190vh;
 }
 
-/* Register form styling */
+/* Registration form */
 .register-form {
     background: white;
     padding: 2rem;
@@ -80,13 +80,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     text-align: center;
     width: 350px;
-}
-
-/* Form heading */
-.register-form h2 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
 }
 
 /* Input fields */
@@ -99,13 +92,11 @@
     font-size: 16px;
 }
 
-/* Register button */
+/* Buttons */
 .register-form button {
     width: 100%;
     padding: 12px;
-    background-color: #007bff;
-    border: none;
-    color: white;
+    margin: 10px 0;
     font-size: 18px;
     border-radius: 5px;
     cursor: pointer;
@@ -113,12 +104,12 @@
 }
 
 .register-form button:hover {
-    background-color: #0056b3;
+    background-color: #007bff;
+    color: white;
 }
 
-/* Error message styling */
+/* Error message */
 .error-message {
     color: red;
     margin-top: 10px;
-    font-size: 14px;
 }
