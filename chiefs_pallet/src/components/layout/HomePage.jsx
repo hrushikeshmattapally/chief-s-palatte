@@ -33,7 +33,7 @@ export default function HomePage() {
         </nav>
         {/* Login & Signup Buttons */}
         <div className="button-container">
-        <Link to="/subscribe" className="button subscribe-button">Subscribe</Link>
+        <Link to="/Register" className="button subscribe-button">Subscribe</Link>
         </div>
       </header>
       <div className="image-container">
