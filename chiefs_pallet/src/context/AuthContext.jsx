@@ -1,4 +1,5 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect } from "react";           //json-server --watch db.json --port 5000
+
 
 export const AuthContext = createContext();
 
@@ -6,33 +7,24 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        const token = localStorage.getItem("token");
-
-        if (storedUser && token) {
-            setUser(JSON.parse(storedUser));
+        const loggedUser = JSON.parse(localStorage.getItem("user"));
+        if (loggedUser) {
+            setUser(loggedUser);
         }
     }, []);
 
-    const login = (userData, token) => {
-        localStorage.setItem("user", JSON.stringify(userData));
-        localStorage.setItem("token", token);
+    const login = (userData) => {
         setUser(userData);
+        localStorage.setItem("user", JSON.stringify(userData));
     };
 
     const logout = () => {
-        localStorage.removeItem("user");
-        localStorage.removeItem("token");
         setUser(null);
-    };
-
-    const updateUser = (updatedUser) => {
-        localStorage.setItem("user", JSON.stringify(updatedUser));
-        setUser(updatedUser);  // ✅ Updates user in context
+        localStorage.removeItem("user");
     };
 
     return (
-        <AuthContext.Provider value={{ user, login, logout, updateUser }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
