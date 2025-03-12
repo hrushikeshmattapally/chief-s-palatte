@@ -6,9 +6,10 @@ import "./Profile.css";
 const Profile = () => {
     const { user, logout, updateUser } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const [editMode, setEditMode] = useState(false);
     const [editedUser, setEditedUser] = useState({ ...user });
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (!user) navigate("/login");
@@ -31,17 +32,41 @@ const Profile = () => {
     };
 
     const handleSave = async () => {
-        const response = await fetch(`http://localhost:5000/users/${user.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(editedUser),
-        });
+        setLoading(true);
+        setError("");
 
-        if (response.ok) {
-            updateUser(editedUser); // Update context
+        try {
+            const token = localStorage.getItem("token");
+            console.log("Sending Update Request:", editedUser);
+
+            const response = await fetch("http://localhost:5000/api/users/update", {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(editedUser),
+            });
+
+            console.log("Raw Response:", response);
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                console.log("Error Data:", errorData);
+                throw new Error(errorData.message || "Failed to update profile");
+            }
+
+            const data = await response.json();
+            console.log("Success Response:", data);
+
+            // ✅ Update user context and UI immediately
+            updateUser(data.user);
             setEditMode(false);
-        } else {
-            alert("Failed to update profile");
+        } catch (err) {
+            console.error("Profile Update Error:", err);
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -93,10 +118,12 @@ const Profile = () => {
                         className="profile-input"
                     />
 
+                    {error && <p className="error-message">{error}</p>}
+
                     {editMode ? (
                         <div className="button-container">
-                            <button className="save-button" onClick={handleSave}>
-                                Save
+                            <button className="save-button" onClick={handleSave} disabled={loading}>
+                                {loading ? "Saving..." : "Save"}
                             </button>
                         </div>
                     ) : (
@@ -116,5 +143,4 @@ const Profile = () => {
 };
 
 export default Profile;
-
 

@@ -22,6 +22,7 @@ const Register = () => {
     });
 
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     // Handle Input Change
     const handleChange = (e) => {
@@ -37,28 +38,40 @@ const Register = () => {
     // Handle Form Submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+        setLoading(true);
 
-        // Check if the username already exists
-        const checkResponse = await fetch(`http://localhost:5000/users?username=${formData.username}`);
-        const existingUsers = await checkResponse.json();
+        try {
+            // Check if the username already exists
+            const checkResponse = await fetch(`http://localhost:5000/api/users/check-username`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: formData.username }),
+            });
 
-        if (existingUsers.length > 0) {
-            setError("Username already taken! Choose another one.");
-            return;
-        }
+            const checkData = await checkResponse.json();
+            if (checkData.exists) {
+                setError("Username already taken! Choose another one.");
+                setLoading(false);
+                return;
+            }
 
-        // Submit Data
-        const response = await fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
+            // Register the user
+            const response = await fetch("http://localhost:5000/api/users/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
-        if (response.ok) {
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.message || "Registration failed!");
+
             alert("Registration successful!");
             navigate("/login");
-        } else {
-            setError("Registration failed! Try again.");
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -95,7 +108,7 @@ const Register = () => {
                         <input type="text" name="state" placeholder="State" value={formData.state} onChange={handleChange} required />
                         <input type="text" name="zip" placeholder="Zip Code" value={formData.zip} onChange={handleChange} required />
                         <button type="button" onClick={prevStep}>Back</button>
-                        <button type="submit">Submit</button>
+                        <button type="submit" disabled={loading}>{loading ? "Registering..." : "Submit"}</button>
                     </>
                 )}
 
