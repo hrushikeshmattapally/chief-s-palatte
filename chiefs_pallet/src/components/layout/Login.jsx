@@ -9,17 +9,33 @@ const Login = () => {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
-        const response = await fetch(`http://localhost:5000/users?username=${username}`);
-        const data = await response.json();
+        setLoading(true);
+        setError("");
 
-        if (data.length > 0 && data[0].password === password) {
-            login(data[0]);
-            navigate("/profile");
-        } else {
-            setError("Invalid username or password!");
+        try {
+            const response = await fetch("http://localhost:5000/api/users/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || "Login failed");
+            }
+
+            // Save token & user details
+            localStorage.setItem("token", data.token);
+            login(data.user);
+            navigate("/");  
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -42,7 +58,9 @@ const Login = () => {
                     required 
                 />
                 {error && <p className="error-message">{error}</p>}
-                <button type="submit">Login</button>
+                <button type="submit" disabled={loading}>
+                    {loading ? "Logging in..." : "Login"}
+                </button>
             </form>
         </div>
     );
