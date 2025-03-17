@@ -1,264 +1,300 @@
-/* HomePage.css */
-/* Header Styles */
-* {
-  
+/* General Styling */
+body, html {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9fafb;
+  color: #333;
 }
 
-body {
-  display: flex;
-  font-family: Arial, sans-serif;
-  background-color: #f7fafc;
-  
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
+/* Header */
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #98D8EF;
+  justify-content: space-between;
+  background-color: #1e3a8a;
+  padding: 15px 20px;
   color: white;
   position: fixed;
   top: 0;
-  width: 100%;
+  left: 0;
+  width: 98%;
   z-index: 1000;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Site Title */
 .title {
-  font-size: 1.8rem;
+  font-size: 26px;
   font-weight: bold;
-  order: 2; 
 }
 
-/* Navigation Items - Desktop */
+/* Navigation */
 .nav_items {
-  display: none; /* Hidden on mobile */
-  gap: 2rem;
+  display: flex;
+  gap: 25px;
 }
 
 .nav-link {
   color: white;
   text-decoration: none;
-  padding: 0.5rem 1rem;
-  transition: background-color 0.3s;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
 .nav-link:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  color: #facc15;
 }
 
-/* Login/Signup Buttons - Desktop */
-.button-container {
-  gap: 1rem;
-  order: 3;
-}
-
-/* Hamburger Menu */
+/* Menu Button for Mobile */
 .menu-button {
-  order: 1; /* Leftmost item */
   background: none;
   border: none;
   color: white;
-  padding: 0.5rem;
+  cursor: pointer;
+  display: none;
 }
 
-/* Dropdown Menu - Mobile */
+/* Dropdown Menu */
 .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: #98D8EF;
   display: none;
-  flex-direction: column;
-  padding: 1rem;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  padding: 10px 0;
+  text-align: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
 }
 
 .dropdown-menu.open {
-  display: flex;
+  display: block;
 }
 
-/* Responsive Desktop Layout */
-@media (min-width: 768px) {
-  .menu-button {
-    display: none;
-  }
+/* Hide desktop navigation when menu is open */
+.hidden {
+  display: none;
+}
 
-  .nav_items {
-    display: flex;
-    order: 2;
-    margin-left: 2rem;
-  }
-
-  /* Update button container */
-/* Subscription button container - Fixing position */
+/* Profile Section */
 .button-container {
-  padding: 1px;
   display: flex;
-  gap: 1rem;
-  order: 3;
-  margin-left: auto;
-  padding: 0 1rem;
-  flex-wrap: wrap; /* Prevents button from overflowing */
-  align-items: center; /* Ensures buttons are aligned */
-  justify-content: center; /* Centers button properly */
-  max-width: 100%; /* Prevents container from exceeding width */
+  align-items: center;
 }
 
-/* Subscription button specific styling */
+/* Profile Picture */
+.profile-pic {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.profile-pic:hover {
+  transform: scale(1.1);
+}
+
+/* Profile Menu */
+.profile-menu {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 12px;
+  width: 160px;
+  z-index: 10;
+}
+
+.profile-menu button {
+  background: none;
+  border: none;
+  color: #1e3a8a;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 5px 0;
+  width: 100%;
+  text-align: left;
+}
+
+.profile-menu button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Subscribe Button */
 .subscribe-button {
-  background-color: #ff4444 !important; /* Red color */
-  color: white !important;
-  padding: 0.8rem 1.5rem;
-  border-radius: 5px;
+  background-color: #f97316;
+  color: white;
+  padding: 10px 15px;
   text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s ease;
-  border: 2px solid transparent;
-  white-space: nowrap; /* Prevent text wrapping */
-  max-width: 100%; /* Prevents button from overflowing */
-  text-align: center;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: background 0.3s ease-in-out;
 }
 
 .subscribe-button:hover {
-  background-color: #cc0000 !important;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #ea580c;
 }
 
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .button-container {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center;
-    width: 100%;
-    padding: 0;
-  }
-
-  .subscribe-button {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
-    width: auto; /* Ensures it doesn’t stretch */
-    max-width: 90%;
-  }
-}
-}
-
-  .title {
-    order: 1; /* Move title to left */
-    margin-right: auto; /* Push nav to center */
-  }
-
-  .dropdown-menu {
-    display: none !important;
-  }
-
-
-/* Image Styles */
-.background-image {
-  width: 100% !important;
-  max-width: 100%;
-  margin: 6rem auto 2rem;
+/* Image Section */
+.image-container {
+  width: 100%;
+  height: 400px; /* Adjust height as needed */
   display: flex;
-  height: 80vh;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures full coverage without distortion */
+}
+
+.background-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the container */
+}
 .popup-text {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
-  font-size: 2.5rem;
-  text-align: center;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  z-index: 1;
+  padding: 12px 20px;
+  font-size: 22px;
+  border-radius: 6px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
+/* Main Content */
+.main-content {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.welcome-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #1e3a8a;
+}
+
+.description {
+  font-size: 18px;
+  color: #555;
+  margin-top: 10px;
+}
+
+/* Footer */
 .footer {
-  background-color: #333;
+  background: #1e3a8a;
   color: white;
-  padding: 15px;
+  padding: 20px 0;
   text-align: center;
   width: 100%;
-  position:relative;
-  margin: 0; 
-}
-
-footer p {
-  margin: 0;
-  font-size: 1rem;
+  margin-top: 30px;
 }
 
 .footer-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  width: 189vh;
+  padding: 0 20px;
+  flex-wrap: wrap;
 }
-
 
 .footer-links a {
   color: white;
-  margin: 0 15px;
   text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease;
+  font-size: 15px;
+  margin-right: 18px;
+  transition: color 0.3s;
 }
 
 .footer-links a:hover {
-  color: #f8b400;
+  color: #facc15;
 }
 
 .footer-social a {
   color: white;
-  margin: 0 10px;
   font-size: 24px;
-  transition: color 0.3s ease;
+  margin: 0 12px;
+  transition: transform 0.3s ease-in-out;
 }
 
 .footer-social a:hover {
-  color: #f8b400;
+  transform: scale(1.2);
 }
 
-.footer-text {
-  font-size: 14px;
-  margin-top: 10px;
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 12px 16px;
+  }
+
+  .nav_items {
+    display: none;
+  }
+
+  .menu-button {
+    display: block;
+  }
+
+  .dropdown-menu {
+    display: none;
+    flex-direction: column;
+  }
+
+  .dropdown-menu.open {
+    display: flex;
+  }
+
+  .footer-container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-links, .footer-social {
+    margin-top: 10px;
+  }
 }
 
-.course-delivery-section h2 {
-  color: #333;
-  font-size: 1.8rem;
-  margin-bottom: 10px;
-}
+@media (max-width: 768px) {
+  .popup-text {
+    font-size: 18px;
+    padding: 10px 15px;
+  }
 
-.course-delivery-section h3 {
-  color: #333;
-  font-size: 1.5rem;
-  margin-top: 20px;
-}
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+  }
 
+  .subscribe-button {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
 
-.course-delivery-section ul {
-  color: #333;
-  list-style-type: none;
-  padding: 0;
-}
+  .footer-links a {
+    font-size: 14px;
+  }
 
-.course-delivery-section ul li {
-  color: #333;
-  font-size: 1rem;
-  margin-bottom: 10px;
-}
-
-.course-delivery-section p {
-  color: #333;
-  font-size: 1rem;
-  margin-bottom: 10px;
+  .footer-social a {
+    font-size: 20px;
+  }
 }

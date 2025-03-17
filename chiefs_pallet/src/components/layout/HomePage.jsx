@@ -1,69 +1,74 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X } from "lucide-react";
 import { FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
-import './HomePage.css';  // Import the CSS file
-import coockingImage from '../../assets/cooking.jpg';
+import { AuthContext } from "../../context/AuthContext";
+import "./HomePage.css";
+import cookingImage from "../../assets/cooking.jpg";
 
 export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { user, logout } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   return (
     <div className="container">
       {/* Header */}
       <header className="header">
-        {/* Menu Button */}
+        {/* Menu Button for Mobile */}
         <button className="menu-button" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
-        {/* Dropdown Menu */}
-      <nav className={`dropdown-menu ${menuOpen ? 'open' : ''}`}>
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/about" className="nav-link">About</Link>
-        <Link to="/recipes" className="nav-link">Recipes</Link>
-      </nav>
 
+        {/* Site Title */}
         <h1 className="title">Chef's Palette</h1>
-        
-        {/* Navigation */}
-        <nav className='nav_items'>
+
+        {/* Desktop Navigation (Hidden when menuOpen is true) */}
+        <nav className={`nav_items ${menuOpen ? "hidden" : ""}`}>
           <Link to="/" className="nav-link">Home</Link>
           <Link to="/about" className="nav-link">About</Link>
           <Link to="/recipes" className="nav-link">Recipes</Link>
         </nav>
-        {/* Login & Signup Buttons */}
+
+        {/* Dropdown Menu for Mobile */}
+        <nav className={`dropdown-menu ${menuOpen ? "open" : ""}`}>
+          <Link to="/" className="nav-link">Home</Link>
+          <Link to="/about" className="nav-link">About</Link>
+          <Link to="/recipes" className="nav-link">Recipes</Link>
+        </nav>
+
+        {/* Profile Section */}
         <div className="button-container">
-        <Link to="/Register" className="button subscribe-button">Subscribe</Link>
+          {user ? (
+            <div className="profile-wrapper">
+              <img
+                src={user.profilePic || "/default-profile.png"}
+                alt="Profile"
+                className="profile-pic"
+                onClick={() => setProfileMenuOpen(!profileMenuOpen)}
+              />
+              {profileMenuOpen && (
+                <div className="profile-menu">
+                  <p>{user.username}</p>
+                  <button onClick={() => navigate("/profile")}>View Profile</button>
+                  <button onClick={() => { logout(); setProfileMenuOpen(false); }}>Logout</button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/register" className="button subscribe-button">Subscribe</Link>
+          )}
         </div>
       </header>
+
+      {/* Image Section */}
       <div className="image-container">
-  <div className="popup-text">Become A Professional Chef!</div>
-  <img 
-    src={coockingImage} 
-    alt="Cooking" 
-    className="background-image" 
-  />
-</div>
-      {/* Main Content */}
-      <div className="course-delivery-section">
-        <h2>Course Delivery</h2>
-        <p >ICCA Dubai’s program is primarily available in the following options:</p>
-
-        <h3>A) Full-time Intensive Program</h3>
-        <ul>
-          <li>Timings: The classes are run 4 days a week on a full-time basis, where students start their day at 07.00 AM and end their day at 05.30 PM, Monday through Thursday.</li>
-          <li>Friday and Saturday are for IWP / industry exposure and Sunday is the weekly day off.</li>
-        </ul>
-
-        <h3>B) Part-time Weekend Program</h3>
-        <ul>
-          <li>Timings: The weekend program is held on Sundays and runs in a cycle with admissions open throughout the year.</li>
-          <li>This program takes approx. twelve (12) months to complete.</li>
-        </ul>
-
-        <p>The student intakes for the full-time program are held every six weeks. Kindly refer to Program Start Dates for upcoming intakes.</p>
-        <p>All equipment, ingredients, and protective gear are provided, along with Standard Recipe Cards for all classes.</p>
+        <div className="popup-text">Become A Professional Chef!</div>
+        <img src={cookingImage} alt="Cooking" className="background-image" />
       </div>
+
+      {/* Main Content */}
       <main className="main-content">
         <h2 className="welcome-title">Welcome to Cooking & Recipes</h2>
         <p className="description">Discover delicious recipes and enhance your cooking skills!</p>
@@ -78,20 +83,13 @@ export default function HomePage() {
             <Link to="/privacy">Privacy Policy</Link>
           </div>
           <div className="footer-social">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
-              <FaFacebook />
-            </a>
-            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-              <FaTwitter />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
-              <FaInstagram />
-            </a>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"><FaTwitter /></a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
           </div>
-          <p className="footer-text">© {new Date().getFullYear()} YourSiteName. All rights reserved.</p>
+          <p className="footer-text">© {new Date().getFullYear()} Chef's Palette. All rights reserved.</p>
         </div>
       </footer>
     </div>
-    
   );
 }

@@ -38,27 +38,23 @@ const Register = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        // Check if the username already exists
-        const checkResponse = await fetch(`http://localhost:5000/users?username=${formData.username}`);
-        const existingUsers = await checkResponse.json();
+        try {
+            const response = await fetch("http://localhost:5000/api/users/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
 
-        if (existingUsers.length > 0) {
-            setError("Username already taken! Choose another one.");
-            return;
-        }
+            const data = await response.json();
 
-        // Submit Data
-        const response = await fetch("http://localhost:5000/users", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(formData),
-        });
-
-        if (response.ok) {
-            alert("Registration successful!");
-            navigate("/login");
-        } else {
-            setError("Registration failed! Try again.");
+            if (response.ok) {
+                alert("Registration successful!");
+                navigate("/login");
+            } else {
+                setError(data.message || "Registration failed! Try again.");
+            }
+        } catch (error) {
+            setError("Something went wrong. Please try again.");
         }
     };
 

@@ -31,17 +31,27 @@ const Profile = () => {
     };
 
     const handleSave = async () => {
-        const response = await fetch(`http://localhost:5000/users/${user.id}`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(editedUser),
-        });
+        try {
+            const token = localStorage.getItem("token");
+            const response = await fetch(`http://localhost:5000/api/auth/update`, {
+                method: "PUT",
+                headers: { 
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(editedUser),
+            });
 
-        if (response.ok) {
-            updateUser(editedUser); // Update context
-            setEditMode(false);
-        } else {
-            alert("Failed to update profile");
+            const data = await response.json();
+
+            if (response.ok) {
+                updateUser(data.user); // Update context
+                setEditMode(false);
+            } else {
+                alert(data.message || "Failed to update profile");
+            }
+        } catch (error) {
+            alert("Something went wrong. Please try again.");
         }
     };
 
